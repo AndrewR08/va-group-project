@@ -14,7 +14,6 @@
     <script>
          d3.csv('mm_scaled.csv').then(data =>{
             console.log(data)
-
             //const scale = d3.scaleLinear().domain(d3.extent(data, d=>+d.track_genre)).range([10,100])
 
             var layout = d3.layout.cloud()
@@ -26,6 +25,12 @@
                 .on("end", draw)
 
             layout.start()
+
+            var tooltip = d3.select("body")
+                    .append("div")
+                    .style("position", "absolute")
+                    .style("visibility", "hidden")
+                    .style("background", "#000")
 
             function draw(words) {
                 //console.log(words)
@@ -45,10 +50,12 @@
                     .attr("text-anchor", "middle")
                     .attr("transform", function (d) { return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")"})
                     .attr('opacity', (d) => d['popularity'])
+                    .style("cursor", "default")
+
                     
 
                     .on('click', function(d) {
-                        //d3.selectAll("svg > *").remove()
+                        d3.select(this).style("cursor", "default")
 
                         var genre_var = d3.select(this).text()
                         var pop_var = d3.select(this).data()[0]['popularity']
@@ -68,16 +75,41 @@
                         }
                     })
 
-                    //want to add popularity value on hover (stretch goal)
+                    //display popularity value for hovered genre
                     .on('mouseover', function (d, i) {
+                        d3.select(this).style("cursor", "default")
+
+                        var pop_var = d3.select(this).data()[0]['popularity']
+
                         d3.select(this).transition()
                             .duration('50')
                             .attr('opacity', '.85')
+
+                        tooltip.text('popularity: ' + Math.round(pop_var*100)) 
+                                .style("visibility", "visible")
+                                .style("left", d.x + "px")     
+                                .style("top", d.y + "px")
+                                .style("color", "white")
+
+                        //console.log(d3.select(this).data()[0]['x'])
+                        //console.log(d)
+
                     })
+                    
+                    .on("mousemove", function() {
+                        d3.select(this).style("cursor", "default")
+                    })                    
+
                     .on('mouseout', function (d, i) {
+                        d3.select(this).style("cursor", "default")
+
+                        var pop_var = d3.select(this).data()[0]['popularity']
+                        
                         d3.select(this).transition()
                             .duration('50')
-                            .attr('opacity', '1')
+                            .attr('opacity', pop_var)
+
+                        tooltip.style("visibility", "hidden")
                     })
             }
 
