@@ -12,17 +12,17 @@
 </head>
 <body>
     <script>
-         d3.csv('dataset1.csv').then(data =>{
+         d3.csv('mm_scaled.csv').then(data =>{
             console.log(data)
 
             //const scale = d3.scaleLinear().domain(d3.extent(data, d=>+d.track_genre)).range([10,100])
 
             var layout = d3.layout.cloud()
-                .size([800, 600])
+                .size([500, 400])
                 .words(data)
-                .padding(5)
-                .rotate(()=>Math.floor(Math.random()*2)*90)
-                .fontSize(d=>d.popularity)
+                .padding(2)
+                .rotate(()=>Math.floor(Math.random()*2)*270)
+                .fontSize(d=>(d.popularity*30))
                 .on("end", draw)
 
             layout.start()
