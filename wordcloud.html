@@ -44,6 +44,7 @@
                     .style("font-family", "Impact")
                     .attr("text-anchor", "middle")
                     .attr("transform", function (d) { return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")"})
+                    .attr('opacity', (d) => d['popularity'])
                     
 
                     .on('click', function(d) {
@@ -59,10 +60,24 @@
 
                         if (color==null) {
                             d3.select(this).attr("fill", "red")
+                            d3.select(this).attr("opacity", "1")
                         }
                         else {
                             d3.select(this).attr("fill", null)
+                            d3.select(this).attr("opacity", pop_var)
                         }
+                    })
+
+                    //want to add popularity value on hover (stretch goal)
+                    .on('mouseover', function (d, i) {
+                        d3.select(this).transition()
+                            .duration('50')
+                            .attr('opacity', '.85')
+                    })
+                    .on('mouseout', function (d, i) {
+                        d3.select(this).transition()
+                            .duration('50')
+                            .attr('opacity', '1')
                     })
             }
 
