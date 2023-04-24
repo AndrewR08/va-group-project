@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Word Cloud</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="d3.layout.cloud.js"></script>
+    
+
+</head>
+<body>
+    <script>
+         d3.csv('dataset1.csv').then(data =>{
+            console.log(data)
+
+            //const scale = d3.scaleLinear().domain(d3.extent(data, d=>+d.track_genre)).range([10,100])
+
+            var layout = d3.layout.cloud()
+                .size([800, 600])
+                .words(data)
+                .padding(5)
+                .rotate(()=>Math.floor(Math.random()*2)*90)
+                .fontSize(d=>d.popularity)
+                .on("end", draw)
+
+            layout.start()
+
+            function draw(words) {
+                //console.log(words)
+                d3.select("body")
+                    .append("svg")
+                    .attr("width", layout.size()[0])
+                    .attr("height", layout.size()[1])
+                    .append("g")
+                    .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+                    .selectAll("text")
+                    .data(words)
+                    .enter()
+                    .append("text")
+                    .text((d) => d['track_genre'])
+                    .style("font-size", (d) => d.size)
+                    .style("font-family", "Impact")
+                    .attr("text-anchor", "middle")
+                    .attr("transform", function (d) { return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")"})
+                    
+
+                    .on('click', function(d) {
+                        //d3.selectAll("svg > *").remove()
+
+                        var genre_var = d3.select(this).text()
+                        var pop_var = d3.select(this).data()[0]['popularity']
+                        const single = [{track_genre:genre_var, popularity:pop_var}]
+                        console.log(single)
+
+                        var color = d3.select(this).attr('fill')
+                        console.log(color)
+
+                        if (color==null) {
+                            d3.select(this).attr("fill", "red")
+                        }
+                        else {
+                            d3.select(this).attr("fill", null)
+                        }
+                    })
+            }
+
+        })
+    </script>
+</body>
+</html>
