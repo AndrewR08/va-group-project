@@ -1,8 +1,11 @@
+const selected_genres = [];
+
 class ViewB {
     constructor(con, root, name, x, y, w, h, color) {
+        this.con = con
         d3.csv('mm_scaled.csv').then(data =>{
             console.log(data)
-            //const scale = d3.scaleLinear().domain(d3.extent(data, d=>+d.track_genre)).range([10,100])
+
             const div = root.append('div')
             .style('position', 'absolute')
             .style('width', `${w}`)
@@ -16,7 +19,7 @@ class ViewB {
             .attr('height', '100%')
 
 
-            var layout = d3.layout.cloud()
+            const layout = d3.layout.cloud()
                 .size([1000, 1000])
                 .words(data)
                 .padding(2)
@@ -26,16 +29,13 @@ class ViewB {
 
             layout.start()
 
-            var tooltip = d3.select("body")
+            const tooltip = d3.select("body")
                     .append("div")
                     .style("position", "absolute")
                     .style("visibility", "hidden")
                     .style("background", "#000")
 
             function draw(words) {
-                //console.log(words)
-                    //.attr("width", layout.size()[0])
-                    //.attr("height", layout.size()[1])
                 svg.attr('width', '100%')
                     .attr('height', '100%')
                     .append("g")
@@ -57,29 +57,29 @@ class ViewB {
                     .on('click', function(d) {
                         d3.select(this).style("cursor", "default")
 
-                        var genre_var = d3.select(this).text()
-                        var pop_var = d3.select(this).data()[0]['popularity']
-                        const single = [{track_genre:genre_var, popularity:pop_var}]
-                        console.log(single)
-
-                        var color = d3.select(this).attr('fill')
-                        console.log(color)
+                        const genre_var = d3.select(this).text()
+                        const pop_var = d3.select(this).data()[0]['popularity']
+                        const color = d3.select(this).attr('fill')
 
                         if (color==null) {
                             d3.select(this).attr("fill", "red")
                             d3.select(this).attr("opacity", "1")
+                            selected_genres.push(genre_var)
                         }
                         else {
                             d3.select(this).attr("fill", null)
                             d3.select(this).attr("opacity", pop_var)
+                            selected_genres.splice(selected_genres.indexOf(genre_var), 1)
                         }
+                        console.log("Selected: ", selected_genres)
+                        this.con.updateSelected(selected_genres)
                     })
 
                     //display popularity value for hovered genre
                     .on('mouseover', function (d, i) {
                         d3.select(this).style("cursor", "default")
 
-                        var pop_var = d3.select(this).data()[0]['popularity']
+                        const pop_var = d3.select(this).data()[0]['popularity']
 
                         d3.select(this).transition()
                             .duration('50')
@@ -91,9 +91,6 @@ class ViewB {
                                 .style("top", d.y + "px")
                                 .style("color", "white")
 
-                        //console.log(d3.select(this).data()[0]['x'])
-                        //console.log(d)
-
                     })
                     
                     .on("mousemove", function() {
@@ -103,7 +100,7 @@ class ViewB {
                     .on('mouseout', function (d, i) {
                         d3.select(this).style("cursor", "default")
 
-                        var pop_var = d3.select(this).data()[0]['popularity']
+                        const pop_var = d3.select(this).data()[0]['popularity']
                         
                         d3.select(this).transition()
                             .duration('50')
@@ -112,14 +109,6 @@ class ViewB {
                         tooltip.style("visibility", "hidden")
                     })
             }
-
         })
-
-        con.Test(`View ${name} is connected.`)
-    }
-
-    showLabel(viewName, tcolor) {
-        const label = d3.select(`#${this.name}-label`)
-        label.text(`View ${viewName} Selected`)
     }
 }
