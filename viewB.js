@@ -20,7 +20,7 @@ class ViewB {
                 .words(data)
                 .padding(2)
                 .rotate(()=>Math.floor(Math.random()*2)*270)
-                .fontSize(d=>(d.popularity*30))
+                .fontSize(d=>(d.popularity*45))
                 .on("end", draw)
 
             layout.start()

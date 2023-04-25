@@ -62,8 +62,8 @@ class ViewA {
       let cor_vals = processData(data, []);
 
       // TODO: Make these meaningful.
-      let width = 400;
-      let height = 200;
+      let width = 800;
+      let height = 600;
       let padding = 40;
 
       // Draw the x-axis.
