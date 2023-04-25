@@ -12,13 +12,10 @@ new (class Control {
         this.#viewB = new ViewB(this, root, 'WordCloud', '50vw', 0, '50vw', '100vh', 'white');
     }
 
-    showViewName(viewName){
-        this.#viewB.showLabel(viewName, 'green');
-    }
-
     updateSelected(selected_genres) {
-        console.log('update selected')
+        console.log('update selected', selected_genres)
         this.#viewA.updateSelectedGenres(selected_genres);
+        this.#viewB.updateSelectedGenres(selected_genres);
     }
 
     Test(str) {

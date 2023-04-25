@@ -3,6 +3,9 @@ const selected_genres = [];
 class ViewB {
     constructor(con, root, name, x, y, w, h, color) {
         this.con = con
+        this.name = name
+
+        console.log(con)
         d3.csv('mm_scaled.csv').then(data =>{
             console.log(data)
 
@@ -71,8 +74,8 @@ class ViewB {
                             d3.select(this).attr("opacity", pop_var)
                             selected_genres.splice(selected_genres.indexOf(genre_var), 1)
                         }
-                        console.log("Selected: ", selected_genres)
-                        this.con.updateSelected(selected_genres)
+                        //console.log("Selected: ", selected_genres)
+                        con.updateSelected(selected_genres)
                     })
 
                     //display popularity value for hovered genre
