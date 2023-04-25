@@ -40,6 +40,7 @@ class ViewA {
       .style('height', `${h}`)
       .style('left', `${x}`)
       .style('top', `${y}`)
+      .attr('class', 'view');
 
     // Create an SVG to use as a canvas.
     const svg = div.append('svg')
@@ -95,6 +96,7 @@ class ViewA {
         cor_vals = processData(data, selected_genres);
         cor_vals.forEach(element => {
           d3.select("#cor_" + element["property"])
+            .transition()
             .attr("y", y_scale(element["value"]) + padding)
             .attr("height", height - y_scale(element["value"]))
         });

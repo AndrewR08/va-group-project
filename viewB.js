@@ -9,6 +9,7 @@ class ViewB {
             .style('height', `${h}`)
             .style('left', `${x}`)
             .style('top', `${y}`)
+            .attr('class', 'view');
 
             const svg = div.append('svg')
             .attr('width', '100%')
