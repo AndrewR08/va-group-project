@@ -76,7 +76,8 @@ class ViewA {
         .call(d3.axisBottom(x_scale))
         .selectAll("text")
           .attr("transform", "translate(-10,0)rotate(-45)")
-          .style("text-anchor", "end");
+          .style("text-anchor", "end")
+          .style("font-size", '16');
 
       // Draw the y-axis.
       const y_scale = d3.scaleSqrt()
@@ -84,7 +85,8 @@ class ViewA {
         .range([height, 0]);
       svg.append("g")
         .attr("transform", "translate(" + padding + "," + padding + ")")
-        .call(d3.axisLeft(y_scale));
+        .call(d3.axisLeft(y_scale))
+        .style("font-size", '16');
 
       // Draw the bars.
       svg.selectAll("mybar")
@@ -95,7 +97,7 @@ class ViewA {
           .attr("y", (d) => y_scale(d['value']) + padding)
           .attr("width", x_scale.bandwidth())
           .attr("height", (d) => height - y_scale(d['value']))
-          .attr("fill", "#69b3a2");
+          .attr("fill", "#FF0000");
     });
     
   }
