@@ -12,7 +12,6 @@ new (class Control {
     }
 
     showViewName(viewName){
-        // console.log(`clicked! ${viewName}`)
         this.#viewA.showLabel(viewName, 'red')
         this.#viewB.showLabel(viewName, 'green')
     }
