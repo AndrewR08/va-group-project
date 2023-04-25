@@ -25,13 +25,6 @@ function processData(data, selected_genres = []) {
     });
   }
 
-  // Sort them from largest to smallest.
-  cor_vals.sort((a, b) => {
-    if (a["value"] > b["value"]) return -1;
-    if (a["value"] < b["value"]) return 1;
-    return 0;
-  });
-
   return cor_vals;
 }
 
@@ -91,11 +84,21 @@ class ViewA {
         .data(cor_vals)
         .enter()
         .append("rect")
+          .attr("id", (d) => "cor_" + d['property'])
           .attr("x", (d) => x_scale(d['property']) + padding)
           .attr("y", (d) => y_scale(d['value']) + padding)
           .attr("width", x_scale.bandwidth())
           .attr("height", (d) => height - y_scale(d['value']))
           .attr("fill", "#69b3a2");
+
+      function updateSelectedGenres(selected_genres) {
+        cor_vals = processData(data, selected_genres);
+        cor_vals.forEach(element => {
+          d3.select("#cor_" + element["property"])
+            .attr("y", y_scale(element["value"]) + padding)
+            .attr("height", height - y_scale(element["value"]))
+        });
+      };
     });
     
   }
