@@ -4,19 +4,18 @@ new (class Control {
 
     constructor() {
         const root = d3.select('body').append('div')
-            .style('height', '10f00')
-            .style('width', '1000')
+            .style('height', '1000')
+            .style('width', '1000');
 
-        this.#viewA = new ViewA(this, root, 'A', 0, 0, '50%', '100%', 'red')
-        this.#viewB = new ViewB(this, root, 'B', '50%', 0, '50%', '100%', 'green')
+        this.#viewA = new ViewA(this, root, 'BarGraph', 0, 0, '50vw', '100vh', 'a');
+        this.#viewB = new ViewB(this, root, 'B', '50%', 0, '50%', '100%', 'green');
     }
 
     showViewName(viewName){
-        this.#viewA.showLabel(viewName, 'red')
-        this.#viewB.showLabel(viewName, 'green')
+        this.#viewB.showLabel(viewName, 'green');
     }
 
     Test(str) {
-        console.log(str)
+        console.log(str);
     }
 })()
