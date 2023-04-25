@@ -15,7 +15,6 @@ new (class Control {
     updateSelected(selected_genres) {
         console.log('update selected', selected_genres)
         this.#viewA.updateSelectedGenres(selected_genres);
-        this.#viewB.updateSelectedGenres(selected_genres);
     }
 
     Test(str) {

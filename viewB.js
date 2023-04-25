@@ -74,7 +74,6 @@ class ViewB {
                             d3.select(this).attr("opacity", pop_var)
                             selected_genres.splice(selected_genres.indexOf(genre_var), 1)
                         }
-                        //console.log("Selected: ", selected_genres)
                         con.updateSelected(selected_genres)
                     })
 

@@ -94,16 +94,25 @@ class ViewA {
           .attr("height", (d) => height - y_scale(d['value']))
           .attr("fill", "#FF0000");
 
-      function updateSelectedGenres(selected_genres) {
-        cor_vals = processData(data, selected_genres);
+      
+    });
+  }
+
+  updateSelectedGenres(selected_genres) {
+    d3.csv('correlations.csv').then(data => {
+        let width = 800;
+        let height = 600;
+        let padding = 40;
+        const cor_vals = processData(data, selected_genres);
+        const y_scale = d3.scaleSqrt()
+            .domain([0, 1])
+            .range([height, 0]);
         cor_vals.forEach(element => {
-          d3.select("#cor_" + element["property"])
+        d3.select("#cor_" + element["property"])
             .transition()
             .attr("y", y_scale(element["value"]) + padding)
             .attr("height", height - y_scale(element["value"]))
-        });
-      };
-    });
-    
-  }
+            })
+        })
+    }
 }
