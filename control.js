@@ -5,15 +5,13 @@ new (class Control {
     constructor() {
         const root = d3.select('body')
             .append('div')
-            .style('height', '1000')
-            .style('width', '1000');
+            .attr('id', 'view-container');
 
-        this.#viewA = new ViewA(this, root, 'BarGraph', 0, 0, '50vw', '100vh', 'white');
+        this.#viewA = new ViewA(this, root, 'BarGraph');
         this.#viewB = new ViewB(this, root, 'WordCloud', '50vw', 0, '50vw', '100vh', 'white');
     }
 
     updateSelected(selected_genres) {
-        console.log('update selected', selected_genres)
         this.#viewA.updateSelectedGenres(selected_genres);
     }
 

@@ -10,16 +10,11 @@ class ViewB {
             console.log(data)
 
             const div = root.append('div')
-            .style('position', 'absolute')
-            .style('width', `${w}`)
-            .style('height', `${h}`)
-            .style('left', `${x}`)
-            .style('top', `${y}`)
-            .attr('class', 'view');
+                .attr('class', 'view');
 
             const svg = div.append('svg')
-            .attr('width', '100%')
-            .attr('height', '100%')
+                .attr("viewBox", "0 0 1000 1000")
+                .style('margin-top', 'calc((50vh - 4px) - ((50vw - 8px) / 2))');
 
 
             const layout = d3.layout.cloud()
@@ -39,8 +34,7 @@ class ViewB {
                     .style("background", "#000")
 
             function draw(words) {
-                svg.attr('width', '100%')
-                    .attr('height', '100%')
+                svg
                     .append("g")
                     .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
                     .selectAll("text")
