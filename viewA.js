@@ -109,6 +109,7 @@ class ViewA {
 
     for (const p in this.cor_vals) {
       this.bars[p]
+        .transition()
         .attr("x", this.x_scale(p) + padding_left)
         .attr("y", this.y_scale(this.cor_vals[p]) + padding_top)
         .attr("width", this.x_scale.bandwidth())
