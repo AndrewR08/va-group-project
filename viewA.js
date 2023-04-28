@@ -38,10 +38,15 @@ class ViewA {
     const div = root.append('div')
       .attr('class', 'view');
 
+    // Add the title to the view.
+    div.append('div')
+      .attr('class', 'view-title')
+      .html('Correlation to Popularity');
+
     // Create an SVG to use as a canvas.
     this.svg = div.append('svg')
-      .attr('width', '100%')
-      .attr("height", '100vh');
+      .attr('width', 'calc(50vw - 6px)')
+      .attr("height", 'calc(100vh - 8px - 40px)');
 
     // Add the axes.
     this.x_axis = this.svg.append("g");
