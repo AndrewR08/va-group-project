@@ -16,7 +16,7 @@ body {
 }
 
 .view {
-    max-height: calc(100vh - 4px);
+    height: calc(100vh - 4px);
     width: calc(50vw - 2px);
     box-sizing: border-box;
     border-width: 2px !important;
@@ -25,6 +25,13 @@ body {
     overflow: hidden;
     text-align: center;
     line-height: 0;
+}
+
+.view .view-title {
+    font-size: 26px;
+    line-height: 26px;
+    padding-top: 14px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .view #clear-button {

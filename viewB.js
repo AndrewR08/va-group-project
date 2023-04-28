@@ -12,11 +12,16 @@ class ViewB {
             const div = root.append('div')
                 .attr('class', 'view');
 
+            // Add the title to the view.
+            div.append('div')
+                .attr('class', 'view-title')
+                .html('Variance of Genre');
+
             const svg = div.append('svg')
                 .attr("viewBox", "0 0 1000 1000")
-                .style('margin-top', "max(0px, calc(((100vh - 35px - 8px) - (50vw - 6px)) / 2))")
-                .style('margin-bottom', "max(0px, calc(((100vh - 35px - 8px) - (50vw - 6px)) / 2))")
-                .style('height', 'min(calc(100vh - 8px - 35px), calc(50vw - 6px))')
+                .style('margin-top', "max(0px, calc(((100vh - 35px - 8px - 40px) - (50vw - 6px)) / 2))")
+                .style('margin-bottom', "max(0px, calc(((100vh - 35px - 8px - 40px) - (50vw - 6px)) / 2))")
+                .style('height', 'min(calc(100vh - 8px - 35px - 40px), calc(50vw - 6px))')
                 .style('width', 'min(calc(100vh - 8px - 35px), calc(50vw - 6px))');
 
             div.append('input')

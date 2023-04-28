@@ -14,12 +14,12 @@ function processData(data, selected_genres = []) {
   // Take the average of each key.
   let data_sum = {}
   for (const p in data_filtered[0]) {
-    if (p == 'track_genre') continue;
+    if ((p == 'track_genre') || ((p == 'std_dev'))) continue;
     data_sum[p] = 0;
   }
   data_filtered.forEach(element => {
     for (const p in element) {
-      if (p == 'track_genre') continue;
+      if ((p == 'track_genre') || ((p == 'std_dev'))) continue;
       data_sum[p] += Math.abs(element[p]);
     }
   });
@@ -38,10 +38,15 @@ class ViewA {
     const div = root.append('div')
       .attr('class', 'view');
 
+    // Add the title to the view.
+    div.append('div')
+      .attr('class', 'view-title')
+      .html('Correlation to Popularity');
+
     // Create an SVG to use as a canvas.
     this.svg = div.append('svg')
-      .attr('width', '100%')
-      .attr("height", '100vh');
+      .attr('width', 'calc(50vw - 6px)')
+      .attr("height", 'calc(100vh - 8px - 40px)');
 
     // Add the axes.
     this.x_axis = this.svg.append("g");
