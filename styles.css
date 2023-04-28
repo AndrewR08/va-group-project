@@ -40,3 +40,5 @@ body {
     width: calc(100% - 10px);
     margin-bottom: 5px;
 }
+
+.text {cursor: crosshair;}

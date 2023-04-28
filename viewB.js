@@ -10,7 +10,8 @@ class ViewB {
             console.log(data)
 
             const div = root.append('div')
-                .attr('class', 'view');
+                .attr('class', 'view')
+                .style("cursor", "default")
 
             // Add the title to the view.
             div.append('div')
@@ -40,10 +41,11 @@ class ViewB {
             const layout = d3.layout.cloud()
                 .size([1000, 1000])
                 .words(data)
-                .padding(2)
+                .padding(5)
                 .rotate(()=>Math.floor(Math.random()*2)*270)
                 .fontSize(d=>(d.std_dev*50))
                 .on("end", draw)
+                //.style("cursor", "default")
 
             layout.start()
 
@@ -66,19 +68,19 @@ class ViewB {
                     .style("font-family", "Impact")
                     .attr("text-anchor", "middle")
                     .attr("transform", function (d) { return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")"})
-                    .attr('opacity', (d) => d['std_dev'])
+                    .attr('opacity', (d) => (d['avg_popularity']))
                     .style("cursor", "default")
 
                     .on('click', function(d) {
-                        d3.select(this).style("cursor", "default")
+                        //d3.select(this).style("cursor", "default")
 
                         const genre_var = d3.select(this).text()
-                        const pop_var = d3.select(this).data()[0]['std_dev']
+                        const pop_var = d3.select(this).data()[0]['avg_popularity']
                         const color = d3.select(this).attr('fill')
 
                         if (color==null) {
                             d3.select(this).attr("fill", "red")
-                            d3.select(this).attr("opacity", "1")
+                            //d3.select(this).attr("opacity", "1")
                             selected_genres.push(genre_var)
                         }
                         else {
@@ -89,11 +91,13 @@ class ViewB {
                         con.updateSelected(selected_genres)
                     })
 
-                    //display popularity value for hovered genre
+                    //display std_dev and popularity values for hovered genre
                     .on('mouseover', function (d, i) {
-                        d3.select(this).style("cursor", "default")
+                        //d3.select(this).style("cursor", "default")
 
-                        var pop_var = d3.select(this).data()[0]['std_dev']
+                        var sd_var = d3.select(this).data()[0]['std_dev']
+                        var pop_var = d3.select(this).data()[0]['avg_popularity']
+                        sd_var = parseFloat(sd_var).toFixed(2)
                         pop_var = parseFloat(pop_var).toFixed(2)
                         //console.log(pop_var)
 
@@ -101,7 +105,7 @@ class ViewB {
                             .duration('50')
                             .attr('opacity', '.85')
 
-                        tooltip.text('Std Dev: ' + pop_var) 
+                        tooltip.text(`Std Dev: ${sd_var}   Popularity: ${pop_var}`)
                                 .style("visibility", "visible")
                                 .style("left", d.x + "px")     
                                 .style("top", d.y + "px")
@@ -110,13 +114,14 @@ class ViewB {
                     })
                     
                     .on("mousemove", function() {
-                        d3.select(this).style("cursor", "default")
+                        //d3.select(this).style("cursor", "default")
                     })                    
 
                     .on('mouseout', function (d, i) {
-                        d3.select(this).style("cursor", "default")
+                        //d3.select(this).style("cursor", "default")
 
-                        const pop_var = d3.select(this).data()[0]['std_dev']
+                        const sd_var = d3.select(this).data()[0]['std_dev']
+                        const pop_var = d3.select(this).data()[0]['avg_popularity']
                         
                         d3.select(this).transition()
                             .duration('50')
