@@ -14,8 +14,19 @@ class ViewB {
 
             const svg = div.append('svg')
                 .attr("viewBox", "0 0 1000 1000")
-                .style('margin-top', 'calc((50vh - 4px) - ((50vw - 8px) / 2))');
+                .style('margin-top', "max(0px, calc(((100vh - 35px - 8px) - (50vw - 6px)) / 2))")
+                .style('margin-bottom', "max(0px, calc(((100vh - 35px - 8px) - (50vw - 6px)) / 2))")
+                .style('height', 'min(calc(100vh - 8px - 35px), calc(50vw - 6px))')
+                .style('width', 'min(calc(100vh - 8px - 35px), calc(50vw - 6px))');
 
+            div.append('input')
+                .attr('id', 'clear-button')
+                .attr('type', 'button')
+                .attr('value', 'CLEAR SELECTION')
+                .on('click', () => {
+                    // TODO: Clear the selected genres.
+                    console.log('clear');
+                });
 
             const layout = d3.layout.cloud()
                 .size([1000, 1000])

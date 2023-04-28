@@ -3,11 +3,6 @@ body {
     padding: 0;
 }
 
-/* div {
-    float: left;
-    
-    
-} */
 
 #view-container {
     height: 100vh;
@@ -15,14 +10,26 @@ body {
     box-sizing: border-box;
     border-width: 2px !important;
     border: solid;
+    background-image: url("background.jpg");
+    background-repeat: repeat;
+    background-size: 150px;
 }
 
 .view {
-    height: calc(100vh - 4px);
+    max-height: calc(100vh - 4px);
     width: calc(50vw - 2px);
     box-sizing: border-box;
     border-width: 2px !important;
     border: solid;
     float: left;
     overflow: hidden;
+    text-align: center;
+    line-height: 0;
+}
+
+.view #clear-button {
+    font-size: 24px;
+    height: 30px;
+    width: calc(100% - 10px);
+    margin-bottom: 5px;
 }

@@ -41,7 +41,7 @@ class ViewA {
     // Create an SVG to use as a canvas.
     this.svg = div.append('svg')
       .attr('width', '100%')
-      .attr("height", '100%');
+      .attr("height", '100vh');
 
     // Add the axes.
     this.x_axis = this.svg.append("g");
