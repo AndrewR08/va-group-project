@@ -6,7 +6,7 @@ class ViewB {
         this.name = name
 
         console.log(con)
-        d3.csv('mm_scaled.csv').then(data =>{
+        d3.csv('correlations.csv').then(data =>{
             console.log(data)
 
             const div = root.append('div')
@@ -15,7 +15,7 @@ class ViewB {
             // Add the title to the view.
             div.append('div')
                 .attr('class', 'view-title')
-                .html('title 2');
+                .html('Variance of Genre');
 
             const svg = div.append('svg')
                 .attr("viewBox", "0 0 1000 1000")

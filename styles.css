@@ -29,8 +29,8 @@ body {
 
 .view .view-title {
     font-size: 26px;
-    line-height: 30px;
-    padding: 7px;
+    line-height: 26px;
+    padding-top: 14px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
