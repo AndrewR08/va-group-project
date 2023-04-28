@@ -14,12 +14,12 @@ function processData(data, selected_genres = []) {
   // Take the average of each key.
   let data_sum = {}
   for (const p in data_filtered[0]) {
-    if (p == 'track_genre') continue;
+    if ((p == 'track_genre') || ((p == 'std_dev'))) continue;
     data_sum[p] = 0;
   }
   data_filtered.forEach(element => {
     for (const p in element) {
-      if (p == 'track_genre') continue;
+      if ((p == 'track_genre') || ((p == 'std_dev'))) continue;
       data_sum[p] += Math.abs(element[p]);
     }
   });
