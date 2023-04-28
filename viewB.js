@@ -6,7 +6,7 @@ class ViewB {
         this.name = name
 
         console.log(con)
-        d3.csv('mm_scaled.csv').then(data =>{
+        d3.csv('correlations.csv').then(data =>{
             console.log(data)
 
             const div = root.append('div')
@@ -25,7 +25,11 @@ class ViewB {
                 .attr('value', 'CLEAR SELECTION')
                 .on('click', () => {
                     // TODO: Clear the selected genres.
-                    console.log('clear');
+                    console.log('clear')
+                    const matches = document.querySelectorAll('[fill*="red"]')
+                    matches.forEach( x => d3.select(x).attr("fill", null) )
+                    matches.forEach( x => selected_genres.splice(selected_genres.indexOf(d3.select(x).text()), 1))
+                    con.updateSelected(selected_genres)
                 });
 
             const layout = d3.layout.cloud()
@@ -33,7 +37,7 @@ class ViewB {
                 .words(data)
                 .padding(2)
                 .rotate(()=>Math.floor(Math.random()*2)*270)
-                .fontSize(d=>(d.popularity*45))
+                .fontSize(d=>(d.std_dev*50))
                 .on("end", draw)
 
             layout.start()
@@ -57,16 +61,14 @@ class ViewB {
                     .style("font-family", "Impact")
                     .attr("text-anchor", "middle")
                     .attr("transform", function (d) { return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")"})
-                    .attr('opacity', (d) => d['popularity'])
+                    .attr('opacity', (d) => d['std_dev'])
                     .style("cursor", "default")
-
-                    
 
                     .on('click', function(d) {
                         d3.select(this).style("cursor", "default")
 
                         const genre_var = d3.select(this).text()
-                        const pop_var = d3.select(this).data()[0]['popularity']
+                        const pop_var = d3.select(this).data()[0]['std_dev']
                         const color = d3.select(this).attr('fill')
 
                         if (color==null) {
@@ -86,13 +88,15 @@ class ViewB {
                     .on('mouseover', function (d, i) {
                         d3.select(this).style("cursor", "default")
 
-                        const pop_var = d3.select(this).data()[0]['popularity']
+                        var pop_var = d3.select(this).data()[0]['std_dev']
+                        pop_var = parseFloat(pop_var).toFixed(2)
+                        //console.log(pop_var)
 
                         d3.select(this).transition()
                             .duration('50')
                             .attr('opacity', '.85')
 
-                        tooltip.text('popularity: ' + Math.round(pop_var*100)) 
+                        tooltip.text('Std Dev: ' + pop_var) 
                                 .style("visibility", "visible")
                                 .style("left", d.x + "px")     
                                 .style("top", d.y + "px")
@@ -107,7 +111,7 @@ class ViewB {
                     .on('mouseout', function (d, i) {
                         d3.select(this).style("cursor", "default")
 
-                        const pop_var = d3.select(this).data()[0]['popularity']
+                        const pop_var = d3.select(this).data()[0]['std_dev']
                         
                         d3.select(this).transition()
                             .duration('50')
