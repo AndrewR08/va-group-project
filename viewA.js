@@ -4,6 +4,8 @@ const padding_bottom = 120;
 const padding_left = 60;
 const padding_right = 40;
 
+const ignore_cols = ['track_genre', 'std_dev', 'avg_popularity'];
+
 // Function for filtering, averaging and sorting the corelation values.
 function processData(data, selected_genres = []) {
   // Filter to contain only the currently selected genres.
@@ -14,12 +16,12 @@ function processData(data, selected_genres = []) {
   // Take the average of each key.
   let data_sum = {}
   for (const p in data_filtered[0]) {
-    if ((p == 'track_genre') || ((p == 'std_dev'))) continue;
+    if (ignore_cols.includes(p)) continue;
     data_sum[p] = 0;
   }
   data_filtered.forEach(element => {
     for (const p in element) {
-      if ((p == 'track_genre') || ((p == 'std_dev'))) continue;
+      if (ignore_cols.includes(p)) continue;
       data_sum[p] += Math.abs(element[p]);
     }
   });
