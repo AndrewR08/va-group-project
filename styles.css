@@ -1,8 +1,8 @@
 body {
     margin: 0;
     padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
-
 
 #view-container {
     height: 100vh;
@@ -31,14 +31,12 @@ body {
     font-size: 26px;
     line-height: 26px;
     padding-top: 14px;
-    font-family: Arial, Helvetica, sans-serif;
+    
 }
 
 .view #clear-button {
-    font-size: 24px;
+    font-size: 20px;
     height: 30px;
     width: calc(100% - 10px);
-    margin-bottom: 5px;
+    margin: 5px 0px 5px 0px;
 }
-
-.text {cursor: crosshair;}
